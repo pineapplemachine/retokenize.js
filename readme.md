@@ -10,7 +10,7 @@ Here's an example of function input and output:
 
 ``` text
 > let types = [{tag: "A", pattern: /te/}, {tag: "B", pattern: /st/}];
-> for(token of tokenize("testtest", types)){console.log(token);}
+> for(token of retokenize("testtest", types)){console.log(token);}
 Object {tag: "A", pattern: /te/, regex: /te/g, match: Array(1), index: 0…}
 Object {tag: "B", pattern: /st/, regex: /st/g, match: Array(1), index: 2…}
 Object {tag: "A", pattern: /te/, regex: /te/g, match: Array(1), index: 4…}
