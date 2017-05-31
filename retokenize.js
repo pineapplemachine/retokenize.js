@@ -21,7 +21,7 @@
 /// in the source string and a "text" attribute holding the text content of
 /// the token, which is always a substring of the source string. It additionally
 /// has a "length" attribute indicating the length in characters of the token.
-function* tokenize(source, types){
+function* retokenize(source, types){
     // Process inputted token types to something more suitable to work with
     let patterns = [];
     for(type of types){
