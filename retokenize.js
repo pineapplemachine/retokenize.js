@@ -3,7 +3,10 @@
 /// Each object in the iterable should have a "tag" attribute and a "pattern"
 /// attribute. The "tag" is any piece of metadata which will be attached to
 /// returned token objects. The "pattern" is a string or a regular expression
-/// object describing what a token of this type must look like.
+/// object describing what a token of this type must look like. Objects in
+/// the iterable may optionally have an "ignore" attribute which, if truthy,
+/// indicates that the tokens of this type should not actually be included in
+/// the output.
 /// Where multiple regular expressions might apply to the current position in
 /// the source string, the longest matched token is given preference. If there
 /// is a tie in match length, the token type which appears soonest in the
@@ -28,6 +31,7 @@ function* retokenize(source, types){
         patterns.push({
             tag: type.tag,
             pattern: type.pattern,
+            ignore: type.ignore,
             match: null,
             // If it isn't already a regex object, make it one, and if it is
             // a regex object, make sure it has a 'g' flag.
@@ -58,7 +62,7 @@ function* retokenize(source, types){
             }
         }
         if(longestPattern){
-            yield {
+            if(!longestPattern.ignore) yield {
                 tag: longestPattern.tag,
                 pattern: longestPattern.pattern,
                 regex: longestPattern.regex,
